@@ -1,27 +1,26 @@
 # -*- encoding : utf-8 -*-
 module Correios
+  require 'nokogiri'
 
   class Address
-    attr_accessor :rua, :bairro, :cidade, :estado
+    attr_accessor :rua, :bairro, :cidade, :estado, :cep
 
     def initialize
       yield self if block_given?
     end
   end
 
-  class CEPSearching
-    URL_CEP_SEARCHING = "http://www.buscacep.correios.com.br/servicos/dnec/consultaEnderecoAction.do?relaxation=#{cep}&TipoCep=ALL&semelhante=N&cfm=1&Metodo=listaLogradouro&TipoConsulta=relaxation&StartRow=1&EndRow=10"
+  def self.get_address cep
+    url = "http://www.buscacep.correios.com.br/servicos/dnec/consultaEnderecoAction.do?relaxation=#{cep}&TipoCep=ALL&semelhante=N&cfm=1&Metodo=listaLogradouro&TipoConsulta=relaxation&StartRow=1&EndRow=10"
+    doc = doc = Nokogiri::HTML(open(url))
+    line = '//div[@id="lamina"]/div[@class="column2"]/div[@class="content"]/div[@class="ctrlcontent"]/div/table[1]/tr[1]/'
 
-    def get_address cep
-      doc = doc = Nokogiri::HTML(open(URL_CEP_SEARCHING))
-      line = '//div[@id="lamina"]/div[@class="column2"]/div[@class="content"]/div[@class="ctrlcontent"]/div/table[1]/tr[1]/'
-
-      Address.new do |a|
-        a.rua = doc.xpath("#{line}td[1]").text.encode("UTF-8", undef: :replace, invalid: :replace)
-        a.bairro = doc.xpath("#{line}td[2]").text.encode("UTF-8", undef: :replace, invalid: :replace)
-        a.cidade = doc.xpath("#{line}td[3]").text.encode("UTF-8", undef: :replace, invalid: :replace)
-        a.estado = doc.xpath("#{line}td[4]").text.encode("UTF-8", undef: :replace, invalid: :replace)
-      end
+    Address.new do |a|
+      a.rua = doc.xpath("#{line}td[1]").text.encode("UTF-8", undef: :replace, invalid: :replace)
+      a.bairro = doc.xpath("#{line}td[2]").text.encode("UTF-8", undef: :replace, invalid: :replace)
+      a.cidade = doc.xpath("#{line}td[3]").text.encode("UTF-8", undef: :replace, invalid: :replace)
+      a.estado = doc.xpath("#{line}td[4]").text.encode("UTF-8", undef: :replace, invalid: :replace)
+      a.cep = cep
     end
   end
 

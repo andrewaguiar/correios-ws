@@ -15,4 +15,5 @@ Gem::Specification.new do |gem|
   gem.version       = Correios::VERSION
 
   gem.add_dependency 'soap4r'
+  gem.add_dependency 'nokogiri'
 end

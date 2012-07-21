@@ -5,17 +5,17 @@ correios-ws uses correios web-services SOAP to calculate shipping.
 ## Installation
 
 Add this line to your application's Gemfile:
-
-   $ gem 'correios-ws'
-
+```shell
+	gem 'correios-ws'
+```
 And then execute:
-
-   $ bundle
-
+```shell
+	bundle
+```
 Or install it yourself as:
-
-   $ gem install correios-ws
-
+```shell
+	gem install correios-ws
+```
 ## Usage
 ```ruby
 require 'correios-ws'
@@ -90,7 +90,17 @@ puts esedex_com_contrato.entrega_domiciliar
 puts esedex_com_contrato.entrega_sabado
 puts esedex_com_contrato.error
 puts esedex_com_contrato.msg_error
-``
+
+# Searching by CEP
+
+address = Correios::get_address(cep)
+puts address.rua
+puts address.bairro
+puts address.cidade
+puts address.estado
+puts address.cep
+```
+
 ## Contributing
 
 1. Fork it
