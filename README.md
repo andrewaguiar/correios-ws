@@ -17,7 +17,7 @@ Or install it yourself as:
    $ gem install correios-ws
 
 ## Usage
-
+```ruby
 require 'correios-ws'
 
 calculator = Correios::ShippingCalculator.new(codigo_empresa, senha)
@@ -29,7 +29,7 @@ package_data = Correios::PackageData.new do |p|
   p.largura = '45'
 end
 
-# calculator.calculate(cep_origem, cep_destino, package_date, array_with_services)
+ calculator.calculate(cep_origem, cep_destino, package_date, array_with_services)
 result = calculator.calculate('08061-430','08061-456', package_data, [
       Correios::Servicos::PAC_SEM_CONTRATO,
       Correios::Servicos::PAC_COM_CONTRATO,
@@ -90,7 +90,7 @@ puts esedex_com_contrato.entrega_domiciliar
 puts esedex_com_contrato.entrega_sabado
 puts esedex_com_contrato.error
 puts esedex_com_contrato.msg_error
-
+```
 ## Contributing
 
 1. Fork it
