@@ -90,7 +90,7 @@ puts esedex_com_contrato.entrega_domiciliar
 puts esedex_com_contrato.entrega_sabado
 puts esedex_com_contrato.error
 puts esedex_com_contrato.msg_error
-```
+``
 ## Contributing
 
 1. Fork it
