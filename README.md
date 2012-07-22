@@ -89,8 +89,8 @@ puts esedex_com_contrato.valor_declarado
 puts esedex_com_contrato.prazo_entrega
 puts esedex_com_contrato.entrega_domiciliar
 puts esedex_com_contrato.entrega_sabado
-puts esedex_com_contrato.error
-puts esedex_com_contrato.msg_error
+puts esedex_com_contrato.erro?
+puts esedex_com_contrato.msg_erro
 
 # Searching by CEP
 

@@ -1,3 +1,3 @@
 module Correios
-    VERSION = "2.0.0"
+    VERSION = "6.0"
 end

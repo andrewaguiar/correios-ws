@@ -157,6 +157,7 @@ module Correios
 
   class Service
     attr_accessor(:codigo,
+                  :descricao,
                   :valor,
                   :valor_mao_propria,
                   :valor_aviso_recebimento,
@@ -165,11 +166,15 @@ module Correios
                   :entrega_domiciliar,
                   :entrega_sabado,
                   :valor_mao_propria,
-                  :error,
-                  :msg_error)
+                  :erro,
+                  :msg_erro)
 
     def initialize
       yield self if block_given?
+    end
+    
+    def erro?
+      @erro
     end
   end
 
@@ -188,7 +193,7 @@ module Correios
       @soap_result.calcPrecoPrazoResult['Servicos']['cServico'].each do |cservico|
         results[cservico['Codigo'].to_s] = Service.new do |s|
           s.codigo = cservico['Codigo']
-          s.descricao = Correios::Services::DESCRIPTIONS[s.codigo]
+          s.descricao = Correios::Servicos::DESCRIPTIONS[s.codigo]
           s.valor = cservico['Valor']
           s.prazo_entrega = cservico['PrazoEntrega']
           #Dados adicionais Valor
@@ -199,8 +204,8 @@ module Correios
           s.entrega_domiciliar = cservico['EntregaDomiciliar']
           s.entrega_sabado = cservico['EntregaSabado']
           #Informacoes de Erro
-          s.error = cservico['Erro'] == 1
-          s.msg_error = cservico['MsgErro']
+          s.erro = cservico['Erro'].to_s != '0'
+          s.msg_erro = s.erro? ? (cservico['Erro'].to_i * -1).to_s + ' - ' + cservico['MsgErro'] : ''
         end
       end
 
