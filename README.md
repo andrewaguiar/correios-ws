@@ -81,6 +81,7 @@ grupo_3_esedex_com_contrato     = services[Correios::Servicos::GRUPO_3_ESEDEX_CO
 
 # for each service use its methods
 puts esedex_com_contrato.codigo
+puts esedex_com_contrato.descricao
 puts esedex_com_contrato.valor
 puts esedex_com_contrato.valor_mao_propria
 puts esedex_com_contrato.valor_aviso_recebimento

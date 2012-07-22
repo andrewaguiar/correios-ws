@@ -85,6 +85,27 @@ module Correios
           Correios::Servicos::GRUPO_2_ESEDEX_COM_CONTRATO,
           Correios::Servicos::GRUPO_3_ESEDEX_COM_CONTRATO
     ]
+    
+    DESCRIPTIONS = {
+      Correios::Servicos::PAC_SEM_CONTRATO                 => 'Pac sem contrato',
+      Correios::Servicos::PAC_COM_CONTRATO                 => 'Pac com contrato',
+      Correios::Servicos::SEDEX_SEM_CONTRATO               => 'Sedex sem contrato',
+      Correios::Servicos::SEDEX_A_COBRAR_SEM_CONTRATO      => 'Sedex a cobrar sem contrato',
+      Correios::Servicos::SEDEX_A_COBRAR_COM_CONTRATO      => 'Sedex a cobrar com contrato',
+      Correios::Servicos::SEDEX_10_SEM_CONTRATO            => 'Sedex 10 sem contrato',
+      Correios::Servicos::SEDEX_HOJE_SEM_CONTRATO          => 'Sedex hoje sem contrato',
+      Correios::Servicos::SEDEX_COM_CONTRATO_1             => 'Sedex com contrato 1',
+      Correios::Servicos::SEDEX_COM_CONTRATO_2             => 'Sedex com contrato 2',
+      Correios::Servicos::SEDEX_COM_CONTRATO_3             => 'Sedex com contrato 3',
+      Correios::Servicos::SEDEX_COM_CONTRATO_4             => 'Sedex com contrato 4',
+      Correios::Servicos::SEDEX_COM_CONTRATO_5             => 'Sedex com contrato 5',
+      Correios::Servicos::ESEDEX_COM_CONTRATO              => 'eSedex com contrato',
+      Correios::Servicos::ESEDEX_PRIORITARIO_COM_CONTRATO  => 'eSedex prioritario com contrato',
+      Correios::Servicos::ESEDEX_EXPRESS_COM_CONTRATO      => 'eSedex express com contrato',
+      Correios::Servicos::GRUPO_1_ESEDEX_COM_CONTRATO      => 'eSedex com contrato (Grupo 1)',
+      Correios::Servicos::GRUPO_2_ESEDEX_COM_CONTRATO      => 'eSedex com contrato (Grupo 2)',
+      Correios::Servicos::GRUPO_3_ESEDEX_COM_CONTRATO      => 'eSedex com contrato (Grupo 3)'
+    }
   end
 
   class PackageData
@@ -167,6 +188,7 @@ module Correios
       @soap_result.calcPrecoPrazoResult['Servicos']['cServico'].each do |cservico|
         results[cservico['Codigo'].to_s] = Service.new do |s|
           s.codigo = cservico['Codigo']
+          s.descricao = Correios::Services::DESCRIPTIONS[s.codigo]
           s.valor = cservico['Valor']
           s.prazo_entrega = cservico['PrazoEntrega']
           #Dados adicionais Valor
