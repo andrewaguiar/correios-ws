@@ -114,7 +114,7 @@ module Correios
     FORMATS = { :box => 1, :roll => 2, :envelope => 3 }
 
     def initialize
-      @peso, @formato, @comprimento, @altura, @largura, @diametro, @valor_declarado, @mao_propria, @aviso_recebimento = '', FORMATS[:box], '', '', '', '', '', '', ''
+      @peso, @formato, @comprimento, @altura, @largura, @diametro, @valor_declarado, @mao_propria, @aviso_recebimento = '', FORMATS[:box], '', '', '', '', '', false, false
       yield self if block_given?
     end
   end
